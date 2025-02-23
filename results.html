@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            padding: 40px;
+        }
+        .container {
+            max-width: 700px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        .stars {
+            color: gold;
+        }
+        .back-button {
+            margin-top: 20px;
+            padding: 12px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+        .back-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🍽️ Your Top Restaurant Picks!</h1>
+
+    {% if message %}
+        <p class="mt-3">{{ message }}</p>
+    {% else %}
+        <div class="container">
+            <table class="table table-striped">
+                <tr>
+                    <th>Restaurant Name</th>
+                    <th>Cuisine</th>
+                    <th>Rating</th>
+                    <th>Cost</th>
+                </tr>
+                {% for res in recommendations %}
+                <tr>
+                    <td>{{ res['Restaurant Name'] }}</td>
+                    <td>{{ res['Cuisines'] }}</td>
+                    <td>
+                        <span class="stars">
+                            {% for i in range(res['Aggregate rating']|int) %} ⭐ {% endfor %}
+                        </span>
+                    </td>
+                    <td>₹{{ res['Average Cost for two'] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endif %}
+
+    <br>
+    <a href="/" class="back-button">⬅ Go Back</a>
+
+</body>
+</html>
