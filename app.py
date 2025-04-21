@@ -8,8 +8,8 @@ import traceback
 app = Flask(__name__)
 
 # Load data and normalize city names
-cleaned_data = pd.read_csv("cleaned_data.csv")
-
+cleaned_data = pd.read_csv("cleaned_data.csv") 
+#
 # Fix city name inconsistencies
 cleaned_data['City'] = cleaned_data['City'].str.strip().str.title()  # Remove spaces, fix capitalization
 cleaned_data['City'] = cleaned_data['City'].replace({'New Delhi': 'Delhi'})  # Convert "New Delhi" to "Delhi"
