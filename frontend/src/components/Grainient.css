@@ -1,0 +1,13 @@
+.grainient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.grainient-bg canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
