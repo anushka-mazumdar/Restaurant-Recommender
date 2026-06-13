@@ -1,64 +1,251 @@
-# 🍽️ Restaurant Recommender  
+# 🍽️CUIZINE RECOMMENDER
 
-A **Flask-powered** restaurant recommendation system that helps users find the best restaurants in **Noida** and **Delhi** based on cuisine, rating, and budget. The system **uses an SVD-based model by default** for recommendations.  
+An intelligent restaurant recommendation system that helps users discover restaurants based on cuisine preferences, location, budget, and rating filters.
 
-## 🚀 Features  
+Built with a modern React frontend and a FastAPI backend powered by machine learning techniques including TF-IDF vectorization and Truncated SVD for content-based recommendation.
 
-✔️ **City Selection** – Choose between **Noida** and **Delhi**.  
-✔️ **Cuisine Filtering** – Get recommendations based on your preferred cuisine.  
-✔️ **Rating & Budget Filters** – Set a minimum rating and maximum cost for recommendations.  
-✔️ **Machine Learning-Powered** – Uses **TF-IDF** vectorization & **SVD** for similarity-based ranking.  
-✔️ **Web Interface** – A simple and intuitive UI built using **Flask & HTML**.  
+---
 
-## 📂 Project Structure  
+## ✨ Features
 
+### Smart Restaurant Search
+
+* Search restaurants by cuisine
+* Filter by city (Delhi / Noida)
+* Filter by budget
+* View ranked recommendations based on similarity matching
+
+### Recommendation Engine
+
+* TF-IDF based feature extraction
+* Truncated SVD dimensionality reduction
+* Cosine similarity ranking
+* Content-based recommendation system
+
+### Interactive Filters
+
+* Rating filter (1+ to 4.5+)
+* Show Top 5, Top 10, Top 15, or All Results
+* Dynamic recommendation count
+
+### Modern User Experience
+
+* Responsive React interface
+* Glassmorphism-inspired UI
+* Animated gradient background
+* Real-time recommendation loading states
+* Searchable cuisine dropdown
+
+---
+
+## 🏗️ Project Architecture
+
+```text
+Savora-AI/
+│
+├── backend/
+│   ├── app/
+│   │   └── main.py
+│   ├── data/
+│   │   └── cleaned_data.csv
+│   ├── trained_models/
+│   │   ├── tfidf_model.pkl
+│   │   └── svd_model.pkl
+│   └── pyproject.toml
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── App.jsx
+│   │   └── index.css
+│   ├── package.json
+│   └── vite.config.js
+│
+└── README.md
 ```
-📂 Restaurant_Recommender/
-│── templates/               # HTML templates for UI
-│   ├── ui.html              # Main UI page
-│   ├── results.html         # Results page
-│   ├── food.jpg             # UI Image
-│── app.py                   # Flask application
-│── cleaned_data.csv         # Preprocessed dataset
-│── svd_model.pkl            # SVD model (default recommendation model)
-│── tfidf_model.pkl          # TF-IDF vectorizer
-│── collab_model.pkl         # (Optional) Collaborative filtering model (not used by default)
-│── Res_recom.ipynb          # Jupyter notebook for data analysis & modeling
-│── tempCodeRunnerFile.py    # Temporary code runner file (can be ignored)
-```
 
-## 🛠️ Installation  
+---
 
-1️⃣ Clone the repository:  
+## 🧠 Machine Learning Pipeline
+
+### Data Preparation
+
+Restaurant metadata is cleaned and processed from the source dataset.
+
+### Feature Engineering
+
+Restaurant cuisines and locations are transformed into textual features using:
+
+* TF-IDF Vectorization
+* Truncated SVD
+
+### Recommendation Generation
+
+1. User enters cuisine, location, and budget.
+2. Restaurants are filtered by city and cost.
+3. TF-IDF transforms user preferences into feature vectors.
+4. SVD reduces dimensionality.
+5. Cosine similarity ranks restaurants.
+6. Results are returned in descending relevance order.
+
+---
+
+## ⚙️ Tech Stack
+
+### Frontend
+
+* React
+* Vite
+* Tailwind CSS
+* JavaScript
+
+### Backend
+
+* FastAPI
+* Uvicorn
+* Pandas
+* Scikit-Learn
+* Pydantic
+
+### Machine Learning
+
+* TF-IDF Vectorizer
+* Truncated SVD
+* Cosine Similarity
+
+---
+
+## 🚀 Running the Project
+
+### Clone Repository
+
 ```bash
-git clone https://github.com/yourusername/restaurant-recommender.git  
-cd restaurant-recommender
+git clone https://github.com/anushka-mazumdar/Restaurant-Recommender.git
+
+cd Restaurant-Recommender
 ```
 
-2️⃣ Install dependencies:  
+---
+
+### Backend Setup
+
 ```bash
-pip install -r requirements.txt
+cd backend
+
+uv sync
 ```
 
-3️⃣ Run the Flask app:  
+Start the API server:
+
 ```bash
-python app.py
+uv run uvicorn app.main:app --reload
 ```
 
-4️⃣ Open your browser and go to:  
+Backend will run on:
+
+```text
+http://127.0.0.1:8000
 ```
-http://127.0.0.1:5500/
+
+API Documentation:
+
+```text
+http://127.0.0.1:8000/docs
 ```
 
-## ⚙️ How It Works  
+---
 
-- **Preprocessed Data:** The system uses `cleaned_data.csv`, where restaurant details are filtered for Noida & Delhi.  
-- **TF-IDF Vectorization:** Converts restaurant cuisines and city into numerical representations.  
-- **SVD (Singular Value Decomposition) - Default Model:** Reduces dimensionality for better similarity matching.  
-- **Cosine Similarity:** Compares user input with restaurant data to suggest the best matches.  
+### Frontend Setup
 
-## 📝 Future Improvements  
+```bash
+cd frontend
 
-🔹 **Collaborative Filtering:** Implement user-based recommendations.  
-🔹 **More Cities:** Expand beyond Noida & Delhi.  
-🔹 **Live User Feedback:** Allow users to rate recommendations.  
+npm install
+```
+
+Start development server:
+
+```bash
+npm run dev
+```
+
+Frontend will run on:
+
+```text
+http://localhost:5173
+```
+
+---
+
+## 📡 API Endpoints
+
+### Get Recommendations
+
+```http
+POST /recommend
+```
+
+Request:
+
+```json
+{
+  "location": "Noida",
+  "cuisine": "Italian",
+  "cost": 2000
+}
+```
+
+Response:
+
+```json
+{
+  "recommendations": [
+    {
+      "Restaurant Name": "Restaurant Name",
+      "Cuisines": "Italian, Pizza",
+      "Aggregate rating": 4.3,
+      "Average Cost for two": 1800
+    }
+  ]
+}
+```
+
+---
+
+### Get Available Cuisines
+
+```http
+GET /cuisines
+```
+
+Returns all cuisines available in the dataset.
+
+---
+
+## 🎯 Future Improvements
+
+* Authentication and user profiles
+* Restaurant bookmarking
+* Recommendation history
+* Hybrid recommendation engine
+* Collaborative filtering
+* Restaurant images and maps integration
+* Cloud deployment
+* Docker support
+
+---
+
+## 👩‍💻 Author
+
+**Anushka Mazumdar**
+
+AI/ML Developer
+
+GitHub:
+https://github.com/anushka-mazumdar
+
+---
+
+## License
+
+This project is intended for educational and portfolio purposes.
